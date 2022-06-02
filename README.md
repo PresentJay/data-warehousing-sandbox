@@ -21,8 +21,10 @@ Author. 정현재 (presentj94@ust.ac.kr)
 
 ## TODO Issue
 
-- [ ] [#1]Data Warehouse 개념 정립 (22.06.03 ~ ) :fire:
-
+- [ ] [[#1]](https://github.com/PresentJay/data-warehousing-sandbox/issues/1) Data Warehouse 개념 정립 (22.06.03 ~ ) :fire:
+- [ ] [[#2]](https://github.com/PresentJay/data-warehousing-sandbox/issues/2) Enrich Document
+- [ ] [[#3]](https://github.com/PresentJay/data-warehousing-sandbox/issues/3) fake-data-generator in python
+- [ ] [[#4]](https://github.com/PresentJay/data-warehousing-sandbox/issues/4) sandbox management: init :fire:
 
 ## 주요 목표 마일스톤
 
