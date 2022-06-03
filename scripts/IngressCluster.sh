@@ -2,6 +2,8 @@
 
 # Author: PresentJay (정현재, presentj94@ust.ac.kr)
 
+source config/common.sh
+
 export KUBECONFIG=config/kubeconfig.yaml
 LOCAL_ADDRESS=$(kubectl config view -o jsonpath="{.clusters[0].cluster.server}" | cut -d"/" -f3 | cut -d":" -f1)
 
@@ -83,25 +85,40 @@ else
     kill "PREFER_PROTOCOL env error: please check your config/common.sh"
 fi
 
-cat << EOF > open_longhorn.sh
-#!/bin/bash
-DEST="${PREFER_PROTOCOL}://dashboard.longhorn.${LOCAL_ADDRESS}.nip.io:${PORT}"
-echo "${DEST}"
-open ${DEST}
-EOF
 
-cat << EOF > open_k8s.sh
-#!/bin/bash
-DEST="${PREFER_PROTOCOL}://dashboard.k8s.${LOCAL_ADDRESS}.nip.io:${PORT}"
-KUBEBOARD_SECRETNAME=$(kubectl -n kubernetes-dashboard get sa/admin-user -o jsonpath="{.secrets[0].name}")
-[URL]
-${DEST}
-[TOKEN]
-$(kubectl -n kubernetes-dashboard get secret ${KUBEBOARD_SECRETNAME} -o go-template=\"{{.data.token | base64decode}}\")
-open ${DEST}
+[ -e open_longhorn.sh ] && rm open_longhorn.sh
+
+DEST="${PREFER_PROTOCOL}://dashboard.longhorn.${LOCAL_ADDRESS}.nip.io:${PORT}"
+
+if [[ ! -e open_longhorn.sh ]]; then
+    cat << EOF > open_longhorn.sh
+    #!/bin/bash
+    echo "${DEST}"
+    open ${DEST}
 EOF
+fi
 
 chmod +x open_longhorn.sh
 chmod 777 open_longhorn.sh
+
+[ -e open_k8s.sh ] && rm open_k8s.sh
+
+DEST="${PREFER_PROTOCOL}://dashboard.k8s.${LOCAL_ADDRESS}.nip.io:${PORT}"
+KUBEBOARD_SECRETNAME=$(kubectl -n kubernetes-dashboard get sa/admin-user -o jsonpath="{.secrets[0].name}")
+KUBEBOARD_TOKEN=$(kubectl get secret ${KUBEBOARD_SECRETNAME} -n kubernetes-dashboard -o go-template="{{.data.token | base64decode}}")
+cat > open_k8s.sh << EOF
+    #!/bin/bash
+    KUBEBOARD_TOKEN="${KUBEBOARD_TOKEN}"
+    echo "[URL]"
+    echo "${DEST}"
+    echo "[TOKEN]"
+    echo "${KUBEBOARD_TOKEN}"
+    open ${DEST}
+EOF
+
 chmod +x open_k8s.sh
 chmod 777 open_k8s.sh
+
+cp open_k8s.sh /usr/local/bin/open_k8s
+cp open_longhorn.sh /usr/local/bin/open_longhorn
+
