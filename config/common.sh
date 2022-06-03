@@ -17,3 +17,12 @@ success() {
 }
 
 ### 로그코드 끝 ###
+
+
+### settings ###
+
+PREFER_PROTOCOL="https" # OR "http"
+INGRESS="ingress-nginx"
+STORAGE="longhorn"
+
+### settings 끝 ###

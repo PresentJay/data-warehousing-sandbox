@@ -6,7 +6,7 @@ source ./config/cluster.sh
 source ./config/common.sh
 
 ITER=1
-while [[ ${ITER} -lt ${NUM_NODES} ]]; do
+while [[ ${ITER} -le ${NUM_NODES} ]]; do
     # cluster.sh 설정에 맞춰 노드 생성
     # 각 노드는 Ubuntu 21.10 OS 기반으로 함
     multipass launch \
@@ -20,6 +20,12 @@ while [[ ${ITER} -lt ${NUM_NODES} ]]; do
     multipass exec node${ITER} -- sudo apt-get update -y 
     multipass exec node${ITER} -- sudo apt-get install nfs-common open-iscsi nfs-kernel-server -y
     
+
+    ITER=$(( ITER+1 ))
+done
+
+ITER=1
+while [[ ${ITER} -le ${NUM_NODES} ]]; do
     if [[ ${ITER} -eq 1 ]]; then
         # Master node : k3s 설치
         # kubernetes version 고정, traefik 사용 해제(v1이기 때문), servicelb 사용 해제, 기본 스토리지 해제
@@ -38,17 +44,15 @@ while [[ ${ITER} -lt ${NUM_NODES} ]]; do
         K3S_URL_FULL="https://${K3S_URL}:6443"
 
         multipass exec node1 sudo cat /etc/rancher/k3s/k3s.yaml > config/kubeconfig.yaml
-        set -i '' "s/127.0.0.1/${K3S_URL}/" config/kubeconfig.yaml
     else
-        # Worker node : k3s 설치
+        # Worker node : k3s 설치 (Master Node에 대해 K3S_TOKEN을 통한 인증)
         multipass exec node${ITER} -- bash -c "curl -sfL: https://get.k3s.io | \
-            INSTALL_K3S_VERSION=${K3S_VERSION} \
-            K3S_URL=${K3S_URL_FULL} \
-            K3S_TOKEN=${K3S_TOKEN} \ 
-            sh -"
+            INSTALL_K3S_VERSION=${K3S_VERSION} K3S_URL=\"${K3S_URL_FULL}\" K3S_TOKEN=\"${K3S_TOKEN}\" sh -"
     fi
     
     success "node${ITER} is set for k3s"
+    sed -i '' "s/127.0.0.1/${K3S_URL}/" config/kubeconfig.yaml
+
     ITER=$(( ITER+1 ))
 done
 unset ITER
