@@ -192,3 +192,5 @@ cython_debug/
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,python
 
 config/kubeconfig.yaml
+
+open*
