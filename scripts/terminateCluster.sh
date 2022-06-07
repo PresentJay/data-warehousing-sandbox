@@ -12,17 +12,21 @@ done && wait
 unset ITER
 
 if [[ -e open_longhorn.sh ]]; then
+    echo -n "[DELETE] "
     rm -v open_longhorn.sh 
 fi
 
 if [[ -e open_k8s.sh ]]; then
+    echo -n "[DELETE] "
     rm -v open_k8s.sh
 fi
 
 if [[ -e /usr/local/bin/open_longhorn ]]; then
+    echo -n "[DELETE] "
     rm -v /usr/local/bin/open_longhorn
 fi
 
 if [[ -e /usr/local/bin/open_k8s ]]; then
+    echo -n "[DELETE] "
     rm -v /usr/local/bin/open_k8s
 fi

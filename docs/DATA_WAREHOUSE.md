@@ -177,3 +177,15 @@
   - You can also forward the data from the Operational Data Store layer to the data warehouse layer at set times.
   - This means that the data is stored in different levels of granularity.
   - For example, whereas the Operational Data Store layer contains all the changes to the data, only the day-end status is stored in the data warehouse layer.
+
+
+### Core Components of Data Warehouse
+
+- `Central Database`
+  - 전통적으로 RDBMS이나, 인메모리 데이터베이스로 변경중
+- `ETL Engine` (Data Integration)
+  - ETL, ELT 및 실시간 데이터 복제, 벌크 로드 처리, 데이터 변환, 데이터 품질 등
+- `Metadata`
+  - 데이터세트의 소스, 사용, 값 및 기타 기능
+- `Access Tools`
+  - 쿼리, 리포팅 툴, 개발 툴, 마이닝 툴, OLAP 툴 등

@@ -29,14 +29,14 @@ while [[ ${ITER} -le ${NUM_NODES} ]]; do
     if [[ ${ITER} -eq 1 ]]; then
         # Master node : k3s 설치
         # kubernetes version 고정, traefik 사용 해제(v1이기 때문), servicelb 사용 해제, 기본 스토리지 해제
-        # feature gate인 TTLAfterFinished 설정 (Job 자동삭제)
+        # feature gate 활성화: TTLAfterFinished(Job 자동삭제), CronJobControllerV2(크론잡 개선)
         multipass exec node${ITER} -- bash -c "curl -sfL https://get.k3s.io | \
             INSTALL_K3S_VERSION=${K3S_VERSION} \
             sh -s - server \
             --disable traefik \
             --disable servicelb \
             --disable local-storage \
-            --kube-apiserver-arg feature-gates=TTLAfterFinished=true"
+            --kube-apiserver-arg feature-gates=TTLAfterFinished=true,CronJobControllerV2=true"
 
         # Master node에 접근할 수 있는 인증 토큰 및 Endpoint 정보 저장
         K3S_TOKEN=$(multipass exec node1 -- bash -c "sudo cat /var/lib/rancher/k3s/server/node-token")
