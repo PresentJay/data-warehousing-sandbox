@@ -193,4 +193,4 @@ cython_debug/
 
 config/kubeconfig.yaml
 
-open*
+open*.sh
