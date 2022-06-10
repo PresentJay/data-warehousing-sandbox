@@ -16,3 +16,5 @@ DISK_SIZE=128
 
 # kubernetes version
 K3S_VERSION="v1.20.15+k3s1"
+
+export KUBECONFIG=config/kubeconfig.yaml
