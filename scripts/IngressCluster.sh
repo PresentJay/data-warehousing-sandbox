@@ -3,8 +3,8 @@
 # Author: PresentJay (정현재, presentj94@ust.ac.kr)
 
 source config/common.sh
+source ./config/cluster.sh
 
-export KUBECONFIG=config/kubeconfig.yaml
 LOCAL_ADDRESS=$(kubectl config view -o jsonpath="{.clusters[0].cluster.server}" | cut -d"/" -f3 | cut -d":" -f1)
 
 cat <<EOF | kubectl apply -f -
@@ -121,4 +121,3 @@ chmod 777 open_k8s.sh
 
 cp open_k8s.sh /usr/local/bin/open_k8s
 cp open_longhorn.sh /usr/local/bin/open_longhorn
-

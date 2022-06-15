@@ -3,7 +3,7 @@
 # Author: PresentJay (정현재, presentj94@ust.ac.kr)
 
 # COUNT_NODES
-NUM_NODES=4
+NUM_NODES=3
 
 # COUNT_CPUS
 NUM_CPUS=4

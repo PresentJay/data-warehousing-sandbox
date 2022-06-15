@@ -21,5 +21,4 @@ helm repo update && \
 ### Kubernetes Dashboard 설치 (클러스터 모니터링 도구) ###
 helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
 helm repo update && \
-    helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --namespace kubernetes-dashboard --create-namespace --version "5.4.1"
-
+    helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --namespace kubernetes-dashboard --create-namespace --version "5.4.1" --set=extraArgs="{--token-ttl=0}"
