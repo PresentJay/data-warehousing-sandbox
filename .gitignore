@@ -193,4 +193,7 @@ cython_debug/
 
 config/kubeconfig.yaml
 
-open*.sh
+k8s.sh
+k8s.bat
+longhorn.sh
+longhorn.bat

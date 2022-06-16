@@ -79,6 +79,17 @@ spec:
                   name: http
 EOF
 
+case ${OS_name} in
+    "Linux")
+      RUN="open"
+      EXP="sh"
+    ;;
+    "Windows" )
+      RUN="start"
+      EXP="bat"
+    ;;
+esac
+
 kubectl patch deployment/kubernetes-dashboard \
     -n kubernetes-dashboard \
     --type=json \
@@ -92,33 +103,29 @@ else
     kill "PREFER_PROTOCOL env error: please check your config/common.sh"
 fi
 
-
-[ -e longhorn.sh ] && rm longhorn.sh
+[ -e longhorn.${EXP} ] && rm longhorn.${EXP}
 
 DEST="${PREFER_PROTOCOL}://dashboard.longhorn.${LOCAL_ADDRESS}.nip.io:${PORT}"
 
-case ${OS_name} in
-    "Linux") RUN="open" ;;
-    "Windows" ) RUN="start" ;;
-esac
 
-if [[ ! -e longhorn.sh ]]; then
-    cat << EOF > longhorn.sh
+
+if [[ ! -e longhorn.${EXP} ]]; then
+    cat << EOF > longhorn.${EXP}
     #!/bin/bash
     echo "${DEST}"
     ${RUN} ${DEST}
 EOF
 fi
 
-chmod +x longhorn.sh
-chmod 777 longhorn.sh
+chmod +x longhorn.${EXP}
+chmod 777 longhorn.${EXP}
 
-[ -e k8s.sh ] && rm k8s.sh
+[ -e k8s.${EXP} ] && rm k8s.${EXP}
 
 DEST="${PREFER_PROTOCOL}://dashboard.k8s.${LOCAL_ADDRESS}.nip.io:${PORT}"
 KUBEBOARD_SECRETNAME=$(kubectl -n kubernetes-dashboard get sa/admin-user -o jsonpath="{.secrets[0].name}")
 KUBEBOARD_TOKEN=$(kubectl get secret ${KUBEBOARD_SECRETNAME} -n kubernetes-dashboard -o go-template="{{.data.token | base64decode}}")
-cat > k8s.sh << EOF
+cat > k8s.${EXP} << EOF
     #!/bin/bash
     KUBEBOARD_TOKEN="${KUBEBOARD_TOKEN}"
     echo "[URL]"
@@ -129,10 +136,10 @@ cat > k8s.sh << EOF
 EOF
 
 
-chmod +x k8s.sh
-chmod 777 k8s.sh
+chmod +x k8s.${EXP}
+chmod 777 k8s.${EXP}
 
-if [[ ${OS_name} -eq "Linux" ]]; then
-  cp k8s.sh /usr/local/bin/k8s
-  cp longhorn.sh /usr/local/bin/longhorn
+if [ ${OS_name} = "Linux" ]; then
+  cp k8s.${EXP} /usr/local/bin/k8s
+  cp longhorn.${EXP} /usr/local/bin/longhorn
 fi
