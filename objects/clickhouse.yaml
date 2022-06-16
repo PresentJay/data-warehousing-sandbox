@@ -1,18 +1,37 @@
 apiVersion: "clickhouse.altinity.com/v1"
 kind: "ClickHouseInstallation"
 metadata:
-  name: "data-warehouse-storage"
+  name: "data-warehouse"
 spec:
+
+# .spec.defaults
   defaults:
+    distributedDDL:
+      profile: default
     templates:
+      podTemplate: clickhouse-v22.2
       dataVolumeClaimTemplate: data-volume-template
       logVolumeClaimTemplate: log-volume-template
+    replicasUseFQDN: "no"
+# .spec.configuration
   configuration:
+    zookeeper:
+      nodes:
+        - host: zookeeper-0.zookeeper-headless.default.svc.cluster.local
+        - host: zookeeper-1.zookeeper-headless.default.svc.cluster.local
+        - host: zookeeper-2.zookeeper-headless.default.svc.cluster.local
+
+# .spec.configuration.clusters
     clusters:
-      - name: "dw-storage"
+      - name: cluster
+        templates:
+          dataVolumeClaimTemplate: data-volume-template
+          logVolumeClaimTemplate: log-volume-template
         layout:
-          shardsCount: 1
-          replicasCount: 1
+          replicasCount: 2
+          shardsCount: 3
+
+# .spec.reconciling
   reconciling:
     policy: "nowait"
     configMapPropagationTimeout: 90
@@ -27,7 +46,11 @@ spec:
         pvc: Retain
         configMap: Retain
         service: Retain
+
+# .spec.templates
   templates:
+  
+    # .spec.templates.volumeClaimtemplates
     volumeClaimTemplates:
       - name: data-volume-template
         spec:
@@ -36,7 +59,7 @@ spec:
             - ReadWriteOnce
           resources:
             requests:
-              storage: 100Gi
+              storage: 50Gi
       - name: log-volume-template
         spec:
           storageClassName: longhorn
@@ -44,29 +67,33 @@ spec:
             - ReadWriteOnce
           resources:
             requests:
-              storage: 10Gi
----
-apiVersion: "clickhouse.altinity.com/v1"
-kind: "ClickHouseInstallation"
-
-metadata:
-  name: "data-warehouse"
-
-spec:
-  configuration:
-    zookeeper:
-      nodes:
-        - host: zookeeper-0.zookeepers.zoo1ns
-    clusters:
-      - name: dw-master
-        layout:
-          replicasCount: 2
-      - name: dw-worker
-        zookeeper:
-          nodes:
-            - host: zookeeper-0.zookeepers.zoo3ns
-            - host: zookeeper-1.zookeepers.zoo3ns
-            - host: zookeeper-2.zookeepers.zoo3ns
-        layout:
-          replicasCount: 2
+              storage: 3Gi
+      - name: default-volume-claim
+        spec:
+          storageClassName: longhorn
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 5Gi
+    
+    # .spec.templates.podTemplates
+    podTemplates:
+      # pod template for ClickHouse v22.2
+      - name: clickhouse-v22.2
+        # type PodSpec struct {} from k8s.io/core/v1
+        spec:
+          containers:
+            - name: clickhouse
+              image: clickhouse/clickhouse-server:22.2
+              volumeMounts:
+                - name: default-volume-claim
+                  mountPath: /var/lib/clickhouse
+              resources:
+                requests:
+                  memory: "64Mi"
+                  cpu: "100m"
+                limits:
+                  memory: "64Mi"
+                  cpu: "100m"
 ---
