@@ -11,22 +11,22 @@ while [[ ${ITER} -gt 0 ]]; do
 done && wait
 unset ITER
 
-if [[ -e open_longhorn.sh ]]; then
+if [[ -e longhorn.sh ]]; then
     echo -n "[DELETE] "
-    rm -v open_longhorn.sh 
+    rm -v longhorn.sh 
 fi
 
-if [[ -e open_k8s.sh ]]; then
+if [[ -e k8s.sh ]]; then
     echo -n "[DELETE] "
-    rm -v open_k8s.sh
+    rm -v k8s.sh
 fi
 
-if [[ -e /usr/local/bin/open_longhorn ]]; then
+if [[ -e /usr/local/bin/longhorn ]]; then
     echo -n "[DELETE] "
-    rm -v /usr/local/bin/open_longhorn
+    rm -v /usr/local/bin/longhorn
 fi
 
-if [[ -e /usr/local/bin/open_k8s ]]; then
+if [[ -e /usr/local/bin/k8s ]]; then
     echo -n "[DELETE] "
-    rm -v /usr/local/bin/open_k8s
+    rm -v /usr/local/bin/k8s
 fi

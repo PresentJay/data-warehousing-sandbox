@@ -12,7 +12,7 @@ NUM_CPUS=4
 MEM_SIZE=4
 
 # DISK_SIZE_GB
-DISK_SIZE=128
+DISK_SIZE=256
 
 # kubernetes version
 K3S_VERSION="v1.20.15+k3s1"
