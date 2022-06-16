@@ -1,7 +1,7 @@
 
 source ./config/cluster.sh
 
-while getopts b-: OPT; do
+while getopts i-: OPT; do
     if [ $OPT = "-" ]; then
         OPT=${OPTARG%%=*}
         OPTARG=${OPTARG#$OPT}

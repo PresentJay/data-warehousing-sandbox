@@ -1,18 +1,22 @@
 apiVersion: "clickhouse.altinity.com/v1"
 kind: "ClickHouseInstallation"
+
 metadata:
-  name: "data-warehouse-storage"
+  name: "data-warehouse"
+
 spec:
   defaults:
     templates:
       dataVolumeClaimTemplate: data-volume-template
       logVolumeClaimTemplate: log-volume-template
   configuration:
+    zookeeper:
+      nodes:
+        - host: zookeeper-headless
     clusters:
-      - name: "dw-storage"
+      - name: dw-master
         layout:
-          shardsCount: 1
-          replicasCount: 1
+          replicasCount: 2
   reconciling:
     policy: "nowait"
     configMapPropagationTimeout: 90
@@ -36,7 +40,7 @@ spec:
             - ReadWriteOnce
           resources:
             requests:
-              storage: 200Gi
+              storage: 100Gi
       - name: log-volume-template
         spec:
           storageClassName: longhorn
@@ -44,29 +48,5 @@ spec:
             - ReadWriteOnce
           resources:
             requests:
-              storage: 3Gi
----
-apiVersion: "clickhouse.altinity.com/v1"
-kind: "ClickHouseInstallation"
-
-metadata:
-  name: "data-warehouse"
-
-spec:
-  configuration:
-    zookeeper:
-      nodes:
-        - host: zookeeper-0.zookeepers.zoo1ns
-    clusters:
-      - name: dw-master
-        layout:
-          replicasCount: 2
-      - name: dw-worker
-        zookeeper:
-          nodes:
-            - host: zookeeper-0.zookeepers
-            - host: zookeeper-1.zookeepers
-            - host: zookeeper-2.zookeepers
-        layout:
-          replicasCount: 2
----
+              storage: 10Gi
+--- 
