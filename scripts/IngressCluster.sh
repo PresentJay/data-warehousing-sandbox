@@ -5,6 +5,13 @@
 source config/common.sh
 source ./config/cluster.sh
 
+OS_name=$(uname -s)
+case ${OS_name} in
+    "Darwin"* | "Linux"*) OS_name="Linux" ;;
+    "MINGW32"* | "MINGW64"* | "CYGWIN" ) OS_name="Windows" ;;
+    *) kill "this OS(${OS_name}) is not supported yet." ;;
+esac
+
 LOCAL_ADDRESS=$(kubectl config view -o jsonpath="{.clusters[0].cluster.server}" | cut -d"/" -f3 | cut -d":" -f1)
 
 cat <<EOF | kubectl apply -f -
@@ -90,10 +97,9 @@ fi
 
 DEST="${PREFER_PROTOCOL}://dashboard.longhorn.${LOCAL_ADDRESS}.nip.io:${PORT}"
 
-case $(uname -s) in
-    "Darwin"* | "Linux"*) RUN="open" ;;
-    "MINGW32"* | "MINGW64"* | "CYGWIN" ) RUN="start" ;;
-    *) kill "this OS($(uname -s)) is not supported yet." ;;
+case ${OS_name} in
+    "Linux") RUN="open" ;;
+    "Windows" ) RUN="start" ;;
 esac
 
 if [[ ! -e longhorn.sh ]]; then
@@ -126,5 +132,7 @@ EOF
 chmod +x k8s.sh
 chmod 777 k8s.sh
 
-cp k8s.sh /usr/local/bin/k8s
-cp longhorn.sh /usr/local/bin/longhorn
+if [[ ${OS_name} -eq "Linux" ]]; then
+  cp k8s.sh /usr/local/bin/k8s
+  cp longhorn.sh /usr/local/bin/longhorn
+fi
