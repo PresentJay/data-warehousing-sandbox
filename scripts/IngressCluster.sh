@@ -86,38 +86,45 @@ else
 fi
 
 
-[ -e open_longhorn.sh ] && rm open_longhorn.sh
+[ -e longhorn.sh ] && rm longhorn.sh
 
 DEST="${PREFER_PROTOCOL}://dashboard.longhorn.${LOCAL_ADDRESS}.nip.io:${PORT}"
 
-if [[ ! -e open_longhorn.sh ]]; then
-    cat << EOF > open_longhorn.sh
+case $(uname -s) in
+    "Darwin"* | "Linux"*) RUN="open" ;;
+    "MINGW32"* | "MINGW64"* | "CYGWIN" ) RUN="start" ;;
+    *) kill "this OS($(uname -s)) is not supported yet." ;;
+esac
+
+if [[ ! -e longhorn.sh ]]; then
+    cat << EOF > longhorn.sh
     #!/bin/bash
     echo "${DEST}"
-    open ${DEST}
+    ${RUN} ${DEST}
 EOF
 fi
 
-chmod +x open_longhorn.sh
-chmod 777 open_longhorn.sh
+chmod +x longhorn.sh
+chmod 777 longhorn.sh
 
-[ -e open_k8s.sh ] && rm open_k8s.sh
+[ -e k8s.sh ] && rm k8s.sh
 
 DEST="${PREFER_PROTOCOL}://dashboard.k8s.${LOCAL_ADDRESS}.nip.io:${PORT}"
 KUBEBOARD_SECRETNAME=$(kubectl -n kubernetes-dashboard get sa/admin-user -o jsonpath="{.secrets[0].name}")
 KUBEBOARD_TOKEN=$(kubectl get secret ${KUBEBOARD_SECRETNAME} -n kubernetes-dashboard -o go-template="{{.data.token | base64decode}}")
-cat > open_k8s.sh << EOF
+cat > k8s.sh << EOF
     #!/bin/bash
     KUBEBOARD_TOKEN="${KUBEBOARD_TOKEN}"
     echo "[URL]"
     echo "${DEST}"
     echo "[TOKEN]"
     echo "${KUBEBOARD_TOKEN}"
-    open ${DEST}
+    ${RUN} ${DEST}
 EOF
 
-chmod +x open_k8s.sh
-chmod 777 open_k8s.sh
 
-cp open_k8s.sh /usr/local/bin/open_k8s
-cp open_longhorn.sh /usr/local/bin/open_longhorn
+chmod +x k8s.sh
+chmod 777 k8s.sh
+
+cp k8s.sh /usr/local/bin/k8s
+cp longhorn.sh /usr/local/bin/longhorn
