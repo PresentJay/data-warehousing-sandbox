@@ -19,7 +19,8 @@ while getopts iu-: OPT; do
                 --set persistence.storageClass="longhorn" \
                 --set metrics.enabled=true \
                 --set metrics.serviceMonitor.enabled=true \
-                --set metrics.prometheusRule.enabled=ture 
+                --set metrics.prometheusRule.enabled=ture
+            logInfo "zookeeper dashboard id: 10465"
         ;;
         modify-nodes)
             helm upgrade zookeeper bitnami/zookeeper --version "9.2.4" \

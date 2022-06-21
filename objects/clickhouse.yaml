@@ -29,7 +29,7 @@ spec:
           logVolumeClaimTemplate: log-volume-template
         layout:
           replicasCount: 2
-          shardsCount: 2
+          shardsCount: 1
 
 # .spec.reconciling
   reconciling:
