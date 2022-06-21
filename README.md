@@ -20,16 +20,20 @@ Author. 정현재 (presentj94@ust.ac.kr)
 2. 구축된 Data Warehouse에서 SQL 등 질의 언어로 데이터 처리 및 분석
 3. R, Python, Excel 등을 이용한 분석 응용
 
-## TODO Issue
+## Quickstart
 
-- [ ] [[#1]](https://github.com/PresentJay/data-warehousing-sandbox/issues/1) Data Warehouse 개념 정립 (22.06.03 ~ ) :fire:
-- [ ] [[#2]](https://github.com/PresentJay/data-warehousing-sandbox/issues/2) Enrich Document
-- [ ] [[#3]](https://github.com/PresentJay/data-warehousing-sandbox/issues/3) fake-data-generator in python
-- [ ] [[#4]](https://github.com/PresentJay/data-warehousing-sandbox/issues/4) sandbox management: init :fire:
-
-## 주요 목표 마일스톤
-
-- [ ] (1) RDBMS (PostgreSQL) 구축, 전처리가 충분히 된 데이터 활용
-- [ ] (2) RDBMS (PostgreSQL) 구축, Raw Data를 획득하여 정규화 등 전처리 수행 (가산점)
-- [ ] (3) NoSQL (MongoDB) 구축, Raw Data를 획득하여 정규화 등 전처리 수행 (가산점)
+1. `./setCmd[.sh/.bat]`
+   - 스크립트 OS에 맞게 변경 (win:.bat, mac/linux:.sh)
+2. `scripts/startupCluster[.sh/.bat]`
+   - `config/cluster.sh`의 설정에 맞게 multipass V-node launch
+3. `scripts/bootstrapCluster[.sh/.bat]`
+   - Ingress-nginx, longhorn storage, kubernetes-dashboard 설정 (./k8s[.sh/.bat], ./longhorn[.sh/.bat] 으로 접근가능)
+4. `scripts/promotheus[.sh/.bat]`
+   - promotheus monitoring 설정
+5. `scripts/IngressCluster[.sh/.bat]`
+   - longhorn dashboard, kubernetes dashboard에 대해 Ingress 설정
+6. `scripts/zookeeper[.sh/.bat]`
+   - zookeeper 설치
+7. `scripts/clickhouse[.sh/.bat]`
+   - clickhouse 설치
 

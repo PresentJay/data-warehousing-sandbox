@@ -1,3 +1,6 @@
+#!/bin/bash
+
+# Author: PresentJay (정현재, presentj94@ust.ac.kr)
 
 source ./config/cluster.sh
 
