@@ -194,7 +194,7 @@ cython_debug/
 config/kubeconfig.yaml
 
 
-grafana.*
-k8s.*
-longhorn.*
-prometheus.*
+/grafana.*
+/k8s.*
+/longhorn.*
+/prometheus.*

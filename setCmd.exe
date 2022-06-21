@@ -5,7 +5,7 @@
 OS_name=$(uname -s)
 case ${OS_name} in
     "Darwin"* | "Linux"*) EXT="sh" ;;
-    "MINGW32"* | "MINGW64"* | "CYGWIN" ) EXT="bat" ;;
+    "MINGW32"* | "MINGW64"* | "CYGWIN" ) EXT="exe" ;;
     *) kill "this OS(${OS_name}) is not supported yet." ;;
 esac
 

@@ -22,18 +22,18 @@ Author. 정현재 (presentj94@ust.ac.kr)
 
 ## Quickstart
 
-1. `./setCmd[.sh/.bat]`
-   - 스크립트 OS에 맞게 변경 (win:.bat, mac/linux:.sh)
-2. `scripts/startupCluster[.sh/.bat]`
+1. `./setCmd[.sh/.exe]`
+   - 스크립트 OS에 맞게 변경 (win:.exe, mac/linux:.sh)
+2. `scripts/startupCluster[.sh/.exe]`
    - `config/cluster.sh`의 설정에 맞게 multipass V-node launch
-3. `scripts/bootstrapCluster[.sh/.bat]`
-   - Ingress-nginx, longhorn storage, kubernetes-dashboard 설정 (./k8s[.sh/.bat], ./longhorn[.sh/.bat] 으로 접근가능, mac의 경우 `k8s`, `longhorn` 입력만으로 가능)
-4. `scripts/promotheus[.sh/.bat]`
+3. `scripts/bootstrapCluster[.sh/.exe]`
+   - Ingress-nginx, longhorn storage, kubernetes-dashboard 설정 (./k8s[.sh/.exe], ./longhorn[.sh/.exe] 으로 접근가능, mac의 경우 `k8s`, `longhorn` 입력만으로 가능)
+4. `scripts/promotheus[.sh/.exe]`
    - promotheus monitoring 설정
-5. `scripts/IngressCluster[.sh/.bat]`
+5. `scripts/IngressCluster[.sh/.exe]`
    - longhorn dashboard, kubernetes dashboard에 대해 Ingress 설정
-6. `scripts/zookeeper[.sh/.bat]`
+6. `scripts/zookeeper[.sh/.exe]`
    - zookeeper 설치
-7. `scripts/clickhouse[.sh/.bat]`
+7. `scripts/clickhouse[.sh/.exe]`
    - clickhouse 설치
 
