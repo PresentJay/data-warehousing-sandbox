@@ -7,7 +7,7 @@ while getopts iucd-: OPT; do
         OPTARG=${OPTARG#$OPT}
         OPTARG=${OPTARG#=}
     fi
-    case $2 in
+    case $OPT in
         i | init | c | create)
             helm repo add prometheus-community https://prometheus-community.github.io/helm-charts && helm repo update
             helm upgrade --install kube-stack-prometheus prometheus-community/kube-prometheus-stack \
