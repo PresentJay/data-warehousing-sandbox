@@ -247,7 +247,7 @@ spec:
 EOF
         [ -e clickhouse.${EXP} ] && rm clickhouse.${EXP}
 
-        DEST="${PREFER_PROTOCOL}://clickhouse.${LOCAL_ADDRESS}.nip.io:${PORT}"
+        DEST="${PREFER_PROTOCOL}://clickhouse.${LOCAL_ADDRESS}.nip.io:${PORT}/play"
 
         if [[ ! -e clickhouse.${EXP} ]]; then
             cat << EOF > clickhouse.${EXP}
@@ -262,6 +262,46 @@ EOF
 
         if [ ${OS_name} = "Linux" ]; then
           cp clickhouse.${EXP} /usr/local/bin/clickhouse
+        fi
+    ;;
+    airbyte)
+        cat <<EOF | kubectl apply -f -
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: airbyte-ingress
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    - host: airbyte.${LOCAL_ADDRESS}.nip.io
+      http:
+        paths:
+          - pathType: ImplementationSpecific
+            backend:
+              service:
+                name: airbyte-webapp-svc
+                port:
+                  number: 80
+EOF
+        [ -e airbyte.${EXP} ] && rm airbyte.${EXP}
+
+        DEST="${PREFER_PROTOCOL}://airbyte.${LOCAL_ADDRESS}.nip.io:${PORT}"
+
+        if [[ ! -e airbyte.${EXP} ]]; then
+            cat << EOF > airbyte.${EXP}
+#!/bin/bash
+echo "${DEST}"
+${RUN} ${DEST}
+EOF
+        fi
+
+        chmod +x airbyte.${EXP}
+        chmod 777 airbyte.${EXP}
+
+        if [ ${OS_name} = "Linux" ]; then
+          cp airbyte.${EXP} /usr/local/bin/airbyte
         fi
     ;;
 esac

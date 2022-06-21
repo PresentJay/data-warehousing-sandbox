@@ -26,18 +26,38 @@ Author. 정현재 (presentj94@ust.ac.kr)
    - 스크립트 OS에 맞게 변경 (win:.exe, mac/linux:.sh)
 2. `scripts/startupCluster[.sh/.exe]`
    - `config/cluster.sh`의 설정에 맞게 multipass V-node launch
+   - 현재 stable set test: 3-node, 512GB, Ram 8G, CPU 8 core
 3. `scripts/bootstrapCluster[.sh/.exe]`
    - Ingress-nginx, longhorn storage, kubernetes-dashboard 설정
 4. `scripts/promotheus[.sh/.exe]`
-   - promotheus monitoring 설정
+   - promotheus monitoring 설정 (Optional: 지금은 추천하지 않음 . . . Image 바꾸는 것 고려(to bitnami)
 5. `scripts/IngressCluster[.sh/.exe] [longhorn, k8s, prometheus, grafana]`
    - 각 dashboard에 대해 ingress 설정 및 실행파일 생성
    - longhorn: `./longhorn[.sh/.exe]`, (mac,linux): `longhorn`
    - kubernetes-dashboard: `./k8s[.sh/.exe]`, (mac,linux): `k8s`
    - prometheus: `./prometheus[.sh/.exe]`, (mac,linux): `prometheus`
    - grafana: `./grafana[.sh/.exe]`, (mac,linux): `grafana`
+     - 초기 ID: admin
+     - 초기 PW: prom-operator
 6. `scripts/zookeeper[.sh/.exe] -i`
    - zookeeper 설치
 7. `scripts/clickhouse[.sh/.exe] -i`
    - clickhouse 설치
+   - clickhouse ingress: `scripts/IngressCluster[.sh/.exe] clickhouse`
+     - default username: clickhouse_operator
+     - default password: clickhouse_operator_password
+     - default database: default
+   - clickhouse online-query 환경
+     - `./clickhouse[.sh/.exe]`
+8. `scripts/airbyte[.sh/.exe] -i`
+   - airbyte 설치
+   - airbyte ingress: `scripts/IngressCluster[.sh/.exe] airbyte`
+   - airbyte online-ETL Workflow 환경
+     - `./airbyte[.sh/.exe]`
+
+
+## DWH analysis flow
+
+- [ ] Database: https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page, Parquet type, 2021-07 이후 data에서 raw file을 airflow로 connect, clickhouse DWH로 load
+- [ ] analysis : [TODO]
 

@@ -29,7 +29,7 @@ spec:
           dataVolumeClaimTemplate: data-volume-template
           logVolumeClaimTemplate: log-volume-template
         layout:
-          replicasCount: 2
+          replicasCount: 1
           shardsCount: 1
 
 # .spec.reconciling
@@ -68,7 +68,7 @@ spec:
             - ReadWriteOnce
           resources:
             requests:
-              storage: 5Gi
+              storage: 10Gi
       - name: default-volume-claim
         spec:
           storageClassName: longhorn
@@ -76,7 +76,7 @@ spec:
             - ReadWriteOnce
           resources:
             requests:
-              storage: 1Gi
+              storage: 10Gi
     
     # .spec.templates.podTemplates
     podTemplates:

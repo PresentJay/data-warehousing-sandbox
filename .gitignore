@@ -199,3 +199,4 @@ config/kubeconfig.yaml
 /longhorn.*
 /prometheus.*
 /clickhouse.*
+/airbyte.*
