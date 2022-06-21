@@ -65,3 +65,7 @@ case ${OS_name} in
     ;;
     *) kill "this OS(${OS_name}) is not supported yet." ;;
 esac
+
+### helm의 config permission error 제거 ###
+chmod o-r ${KUBECONFIG_LOC}
+chmod g-r ${KUBECONFIG_LOC}

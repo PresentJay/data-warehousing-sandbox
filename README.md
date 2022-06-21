@@ -27,13 +27,17 @@ Author. 정현재 (presentj94@ust.ac.kr)
 2. `scripts/startupCluster[.sh/.exe]`
    - `config/cluster.sh`의 설정에 맞게 multipass V-node launch
 3. `scripts/bootstrapCluster[.sh/.exe]`
-   - Ingress-nginx, longhorn storage, kubernetes-dashboard 설정 (./k8s[.sh/.exe], ./longhorn[.sh/.exe] 으로 접근가능, mac의 경우 `k8s`, `longhorn` 입력만으로 가능)
+   - Ingress-nginx, longhorn storage, kubernetes-dashboard 설정
 4. `scripts/promotheus[.sh/.exe]`
    - promotheus monitoring 설정
-5. `scripts/IngressCluster[.sh/.exe]`
-   - longhorn dashboard, kubernetes dashboard에 대해 Ingress 설정
-6. `scripts/zookeeper[.sh/.exe]`
+5. `scripts/IngressCluster[.sh/.exe] [longhorn, k8s, prometheus, grafana]`
+   - 각 dashboard에 대해 ingress 설정 및 실행파일 생성
+   - longhorn: `./longhorn[.sh/.exe]`, (mac,linux): `longhorn`
+   - kubernetes-dashboard: `./k8s[.sh/.exe]`, (mac,linux): `k8s`
+   - prometheus: `./prometheus[.sh/.exe]`, (mac,linux): `prometheus`
+   - grafana: `./grafana[.sh/.exe]`, (mac,linux): `grafana`
+6. `scripts/zookeeper[.sh/.exe] -i`
    - zookeeper 설치
-7. `scripts/clickhouse[.sh/.exe]`
+7. `scripts/clickhouse[.sh/.exe] -i`
    - clickhouse 설치
 

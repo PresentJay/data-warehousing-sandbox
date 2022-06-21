@@ -2,7 +2,7 @@
 
 # Author: PresentJay (정현재, presentj94@ust.ac.kr)
 
-source config/common.sh
+source ./config/common.sh
 source ./config/cluster.sh
 
 OS_name=$(uname -s)
