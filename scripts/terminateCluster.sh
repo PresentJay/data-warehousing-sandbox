@@ -37,3 +37,5 @@ deleteCmd() {
 deleteCmd longhorn.$EXT
 deleteCmd k8s.$EXT
 deleteCmd prometheus.$EXT
+deleteCmd grafana.$EXT
+deleteCmd clickhouse.$EXT

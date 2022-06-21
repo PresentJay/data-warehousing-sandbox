@@ -224,6 +224,46 @@ EOF
           cp grafana.${EXP} /usr/local/bin/grafana
         fi
     ;;
+    clickhouse)
+        cat <<EOF | kubectl apply -f -
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: clickhouse-ingress
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    - host: clickhouse.${LOCAL_ADDRESS}.nip.io
+      http:
+        paths:
+          - pathType: ImplementationSpecific
+            backend:
+              service:
+                name: clickhouse-datawarehouse
+                port:
+                  name: http
+EOF
+        [ -e clickhouse.${EXP} ] && rm clickhouse.${EXP}
+
+        DEST="${PREFER_PROTOCOL}://clickhouse.${LOCAL_ADDRESS}.nip.io:${PORT}"
+
+        if [[ ! -e clickhouse.${EXP} ]]; then
+            cat << EOF > clickhouse.${EXP}
+#!/bin/bash
+echo "${DEST}"
+${RUN} ${DEST}
+EOF
+        fi
+
+        chmod +x clickhouse.${EXP}
+        chmod 777 clickhouse.${EXP}
+
+        if [ ${OS_name} = "Linux" ]; then
+          cp clickhouse.${EXP} /usr/local/bin/clickhouse
+        fi
+    ;;
 esac
 
 

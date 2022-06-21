@@ -11,6 +11,7 @@ spec:
       profile: default
     templates:
       podTemplate: clickhouse-v22.2
+      serviceTemplate: nodeport-template
       dataVolumeClaimTemplate: data-volume-template
       logVolumeClaimTemplate: log-volume-template
 # .spec.configuration
@@ -59,7 +60,7 @@ spec:
             - ReadWriteOnce
           resources:
             requests:
-              storage: 150Gi
+              storage: 100Gi
       - name: log-volume-template
         spec:
           storageClassName: longhorn
@@ -67,7 +68,7 @@ spec:
             - ReadWriteOnce
           resources:
             requests:
-              storage: 10Gi
+              storage: 5Gi
       - name: default-volume-claim
         spec:
           storageClassName: longhorn
@@ -75,7 +76,7 @@ spec:
             - ReadWriteOnce
           resources:
             requests:
-              storage: 10Gi
+              storage: 1Gi
     
     # .spec.templates.podTemplates
     podTemplates:
@@ -89,4 +90,13 @@ spec:
               volumeMounts:
                 - name: default-volume-claim
                   mountPath: /var/lib/clickhouse
+    serviceTemplates:
+      - name: nodeport-template
+        spec:
+          ports:
+            - name: http
+              port: 8123
+            - name: tcp
+              port: 9000
+          type: NodePort
 ---

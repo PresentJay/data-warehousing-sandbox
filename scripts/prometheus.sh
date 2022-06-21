@@ -16,7 +16,7 @@ while getopts iucd-: OPT; do
             kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.8.0/cert-manager.yaml
             sleep 20
             helm upgrade --install kube-stack-prometheus prometheus-community/kube-prometheus-stack \
-                -n monitoring --create-namespace --no-hooks \
+                -n monitoring --create-namespace \
                 --set prometheus-node-exporter.hostRootFsMount.enabled=false \
                 --set prometheusOperator.admissionWebhooks.certManager.enabled=true
         ;;

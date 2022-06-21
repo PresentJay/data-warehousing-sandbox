@@ -15,12 +15,12 @@ while getopts iu-: OPT; do
             helm repo add bitnami https://charts.bitnami.com/bitnami
             helm upgrade --install zookeeper bitnami/zookeeper --version "9.2.4" \
                 --set replicaCount=3 \
-                --set allowAnonymousLogin=true \
+                --set allowAnonymousLogin="true" \
                 --set persistence.storageClass="longhorn" \
-                --set metrics.enabled=true \
-                --set metrics.serviceMonitor.enabled=true \
-                --set metrics.prometheusRule.enabled=ture
-            logInfo "zookeeper dashboard id: 10465"
+                --set metrics.enabled="true" \
+                --set metrics.serviceMonitor.enabled="true" \
+                --set metrics.prometheusRule.enabled="true" \
+                --set metrics.serviceMonitor.honorLabels="true"
         ;;
         modify-nodes)
             helm upgrade zookeeper bitnami/zookeeper --version "9.2.4" \

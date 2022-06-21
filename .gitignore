@@ -125,7 +125,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+config/.env
 .venv
 env/
 venv/
@@ -198,3 +198,4 @@ config/kubeconfig.yaml
 /k8s.*
 /longhorn.*
 /prometheus.*
+/clickhouse.*
