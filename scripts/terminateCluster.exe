@@ -11,6 +11,29 @@ while [[ ${ITER} -gt 0 ]]; do
 done && wait
 unset ITER
 
-deleteCmd longhorn.sh
-deleteCmd k8s.sh
-deleteCmd prometheus.sh
+OS_name=$(uname -s)
+case ${OS_name} in
+    "Darwin"* | "Linux"*)
+        EXP="sh"
+    ;;
+    "MINGW32"* | "MINGW64"* | "CYGWIN" )
+        EXP="exe"
+    ;;
+    *) kill "this OS(${OS_name}) is not supported yet." ;;
+esac
+
+
+deleteCmd() {
+    if [[ -e $1 ]]; then
+        echo -n "[DELETE] "
+        rm -v $1
+    fi
+    if [[ -e /usr/local/bin/$1 ]]; then
+        echo -n "[DELETE] "
+        rm -v /usr/local/bin/$1
+    fi
+}
+
+deleteCmd longhorn.$EXT
+deleteCmd k8s.$EXT
+deleteCmd prometheus.$EXT

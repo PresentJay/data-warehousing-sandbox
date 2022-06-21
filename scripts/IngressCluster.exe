@@ -15,7 +15,7 @@ case ${OS_name} in
     "MINGW32"* | "MINGW64"* | "CYGWIN" )
         OS_name="Windows"
         RUN="start"
-        EXP="bat"
+        EXP="exe"
     ;;
     *) kill "this OS(${OS_name}) is not supported yet." ;;
 esac

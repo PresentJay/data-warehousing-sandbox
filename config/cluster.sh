@@ -3,13 +3,13 @@
 # Author: PresentJay (정현재, presentj94@ust.ac.kr)
 
 # COUNT_NODES
-NUM_NODES=3
+NUM_NODES=4
 
 # COUNT_CPUS
-NUM_CPUS=2
+NUM_CPUS=8
 
 # MEMORY_SIZE_GB
-MEM_SIZE=2
+MEM_SIZE=8
 
 # DISK_SIZE_GB
 DISK_SIZE=512
