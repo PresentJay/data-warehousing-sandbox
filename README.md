@@ -35,22 +35,26 @@ Author. 정현재 (presentj94@ust.ac.kr)
    - 각 dashboard에 대해 ingress 설정 및 실행파일 생성
    - longhorn: `./longhorn[.sh/.exe]`, (mac,linux): `longhorn`
    - kubernetes-dashboard: `./k8s[.sh/.exe]`, (mac,linux): `k8s`
+     - 해당 스크립트 실행 시 토큰 같이 주어지며, 해당 토큰의 인증시간은 `무제한`으로 설정됨 (TOKEN-TTL 값 변경 가능: `sec단위`)
    - prometheus: `./prometheus[.sh/.exe]`, (mac,linux): `prometheus`
    - grafana: `./grafana[.sh/.exe]`, (mac,linux): `grafana`
-     - 초기 ID: admin
-     - 초기 PW: prom-operator
+     - default ID: `admin`
+     - default PW: `prom-operator`
 6. `scripts/zookeeper[.sh/.exe] -i`
    - zookeeper 설치
 7. `scripts/clickhouse[.sh/.exe] -i`
    - clickhouse 설치
    - clickhouse ingress: `scripts/IngressCluster[.sh/.exe] clickhouse`
-     - default username: clickhouse_operator
-     - default password: clickhouse_operator_password
-     - default database: default
+     - default username: `clickhouse_operator`
+     - default password: `clickhouse_operator_password`
+     - default database: `default`
+     - default port: `8123`
    - clickhouse online-query 환경
      - `./clickhouse[.sh/.exe]`
 8. `scripts/airbyte[.sh/.exe] -i`
    - airbyte 설치
+     - https://docs.airbyte.com/deploying-airbyte/on-kubernetes (beta kustomize 응용)
+     - it has a license: https://github.com/airbytehq/airbyte/blob/master/LICENSE 
    - airbyte ingress: `scripts/IngressCluster[.sh/.exe] airbyte`
    - airbyte online-ETL Workflow 환경
      - `./airbyte[.sh/.exe]`
