@@ -90,11 +90,6 @@ case ${OS_name} in
     ;;
 esac
 
-kubectl patch deployment/kubernetes-dashboard \
-    -n kubernetes-dashboard \
-    --type=json \
-    -p='[{\"op\": \"add\", \"path\": \"/spec/template/spec/containers/0/args/-\", \"value\": \"--token-ttl=43200\"}]'
-
 if [[ ${PREFER_PROTOCOL}="https" ]]; then
     PORT=$(kubectl get svc ingress-nginx-controller -n ingress-nginx -o jsonpath="{.spec.ports[1].nodePort}")
 elif [[ ${PREFER_PROTOCOL}="http" ]]; then
@@ -106,8 +101,6 @@ fi
 [ -e longhorn.${EXP} ] && rm longhorn.${EXP}
 
 DEST="${PREFER_PROTOCOL}://dashboard.longhorn.${LOCAL_ADDRESS}.nip.io:${PORT}"
-
-
 
 if [[ ! -e longhorn.${EXP} ]]; then
     cat << EOF > longhorn.${EXP}

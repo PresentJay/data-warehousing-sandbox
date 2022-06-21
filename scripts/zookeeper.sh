@@ -1,7 +1,7 @@
 
 source ./config/cluster.sh
 
-while getopts i-: OPT; do
+while getopts iu-: OPT; do
     if [ $OPT = "-" ]; then
         OPT=${OPTARG%%=*}
         OPTARG=${OPTARG#$OPT}
@@ -20,6 +20,8 @@ while getopts i-: OPT; do
                 --set replicaCount=$2 \
                 --set allowAnonymousLogin=true
         ;;
+        u | uninstall)
+            helm uninstall zookeeper
+        ;;
     esac
 done
-

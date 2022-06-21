@@ -29,7 +29,7 @@ spec:
           logVolumeClaimTemplate: log-volume-template
         layout:
           replicasCount: 2
-          shardsCount: 3
+          shardsCount: 1
 
 # .spec.reconciling
   reconciling:
@@ -59,7 +59,7 @@ spec:
             - ReadWriteOnce
           resources:
             requests:
-              storage: 200Gi
+              storage: 150Gi
       - name: log-volume-template
         spec:
           storageClassName: longhorn
@@ -89,11 +89,4 @@ spec:
               volumeMounts:
                 - name: default-volume-claim
                   mountPath: /var/lib/clickhouse
-              resources:
-                requests:
-                  memory: "64Mi"
-                  cpu: "100m"
-                limits:
-                  memory: "64Mi"
-                  cpu: "100m"
 ---
