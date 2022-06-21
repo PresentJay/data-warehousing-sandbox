@@ -199,3 +199,5 @@ longhorn.sh
 longhorn.bat
 prometheus.sh
 prometheus.bat
+grafana.sh
+grafana.bat
