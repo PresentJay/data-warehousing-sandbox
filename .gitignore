@@ -193,11 +193,8 @@ cython_debug/
 
 config/kubeconfig.yaml
 
+
+grafana.*
 k8s.sh
-k8s.bat
-longhorn.sh
-longhorn.bat
-prometheus.sh
-prometheus.bat
-grafana.sh
-grafana.bat
+longhorn.*
+prometheus.*
