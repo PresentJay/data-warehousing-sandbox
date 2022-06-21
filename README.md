@@ -27,7 +27,7 @@ Author. 정현재 (presentj94@ust.ac.kr)
 2. `scripts/startupCluster[.sh/.bat]`
    - `config/cluster.sh`의 설정에 맞게 multipass V-node launch
 3. `scripts/bootstrapCluster[.sh/.bat]`
-   - Ingress-nginx, longhorn storage, kubernetes-dashboard 설정 (./k8s[.sh/.bat], ./longhorn[.sh/.bat] 으로 접근가능)
+   - Ingress-nginx, longhorn storage, kubernetes-dashboard 설정 (./k8s[.sh/.bat], ./longhorn[.sh/.bat] 으로 접근가능, mac의 경우 `k8s`, `longhorn` 입력만으로 가능)
 4. `scripts/promotheus[.sh/.bat]`
    - promotheus monitoring 설정
 5. `scripts/IngressCluster[.sh/.bat]`
