@@ -26,3 +26,14 @@ INGRESS="ingress-nginx"
 STORAGE="longhorn"
 
 ### settings 끝 ###
+
+deleteCmd() {
+    if [[ -e $1 ]]; then
+        echo -n "[DELETE] "
+        rm -v $1
+    fi
+    if [[ -e /usr/local/bin/$1 ]]; then
+        echo -n "[DELETE] "
+        rm -v /usr/local/bin/$1
+    fi
+}

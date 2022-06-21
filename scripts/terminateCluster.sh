@@ -11,22 +11,6 @@ while [[ ${ITER} -gt 0 ]]; do
 done && wait
 unset ITER
 
-if [[ -e longhorn.sh ]]; then
-    echo -n "[DELETE] "
-    rm -v longhorn.sh 
-fi
-
-if [[ -e k8s.sh ]]; then
-    echo -n "[DELETE] "
-    rm -v k8s.sh
-fi
-
-if [[ -e /usr/local/bin/longhorn ]]; then
-    echo -n "[DELETE] "
-    rm -v /usr/local/bin/longhorn
-fi
-
-if [[ -e /usr/local/bin/k8s ]]; then
-    echo -n "[DELETE] "
-    rm -v /usr/local/bin/k8s
-fi
+deleteCmd longhorn.sh
+deleteCmd k8s.sh
+deleteCmd prometheus.sh

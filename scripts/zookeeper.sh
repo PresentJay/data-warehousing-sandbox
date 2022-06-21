@@ -13,10 +13,13 @@ while getopts iu-: OPT; do
     case $OPT in
         i | install)
             helm repo add bitnami https://charts.bitnami.com/bitnami
-            helm install zookeeper bitnami/zookeeper --version "9.2.4" \
+            helm upgrade --install zookeeper bitnami/zookeeper --version "9.2.4" \
                 --set replicaCount=3 \
                 --set allowAnonymousLogin=true \
-                --set persistence.storageClass="longhorn"
+                --set persistence.storageClass="longhorn" \
+                --set metrics.enabled=true \
+                --set metrics.serviceMonitor.enabled=true \
+                --set metrics.prometheusRule.enabled=ture 
         ;;
         modify-nodes)
             helm upgrade zookeeper bitnami/zookeeper --version "9.2.4" \

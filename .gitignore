@@ -197,3 +197,5 @@ k8s.sh
 k8s.bat
 longhorn.sh
 longhorn.bat
+prometheus.sh
+prometheus.bat
