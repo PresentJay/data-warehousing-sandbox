@@ -195,6 +195,6 @@ config/kubeconfig.yaml
 
 
 grafana.*
-k8s.sh
+k8s.*
 longhorn.*
 prometheus.*
