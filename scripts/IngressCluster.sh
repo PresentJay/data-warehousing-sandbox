@@ -43,6 +43,7 @@ metadata:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: letsencrypt-staging
     nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    kubernetes.io/proxy-body-size: "1tb"
 spec:
   tls:
     - hosts:
@@ -110,6 +111,7 @@ metadata:
   namespace: longhorn-system
   annotations:
     kubernetes.io/ingress.class: nginx
+    kubernetes.io/proxy-body-size: "1tb"
 spec:
   rules:
     - host: dashboard.longhorn.${LOCAL_ADDRESS}.nip.io
@@ -151,6 +153,7 @@ metadata:
   namespace: monitoring
   annotations:
     kubernetes.io/ingress.class: nginx
+    kubernetes.io/proxy-body-size: "1tb"
 spec:
   rules:
     - host: dashboard.prometheus.${LOCAL_ADDRESS}.nip.io
@@ -191,6 +194,7 @@ metadata:
   namespace: monitoring
   annotations:
     kubernetes.io/ingress.class: nginx
+    kubernetes.io/proxy-body-size: "1tb"
 spec:
   rules:
     - host: dashboard.grafana.${LOCAL_ADDRESS}.nip.io
@@ -233,6 +237,7 @@ metadata:
   namespace: default
   annotations:
     kubernetes.io/ingress.class: nginx
+    kubernetes.io/proxy-body-size: "1tb"
 spec:
   rules:
     - host: clickhouse.${LOCAL_ADDRESS}.nip.io
@@ -273,6 +278,7 @@ metadata:
   namespace: default
   annotations:
     kubernetes.io/ingress.class: nginx
+    kubernetes.io/proxy-body-size: "1tb"
 spec:
   rules:
     - host: airbyte.${LOCAL_ADDRESS}.nip.io

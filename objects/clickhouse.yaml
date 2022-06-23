@@ -60,7 +60,7 @@ spec:
             - ReadWriteOnce
           resources:
             requests:
-              storage: 100Gi
+              storage: 50Gi
       - name: log-volume-template
         spec:
           storageClassName: longhorn
@@ -68,7 +68,7 @@ spec:
             - ReadWriteOnce
           resources:
             requests:
-              storage: 10Gi
+              storage: 5Gi
       - name: default-volume-claim
         spec:
           storageClassName: longhorn
@@ -76,7 +76,7 @@ spec:
             - ReadWriteOnce
           resources:
             requests:
-              storage: 10Gi
+              storage: 5Gi
     
     # .spec.templates.podTemplates
     podTemplates:
