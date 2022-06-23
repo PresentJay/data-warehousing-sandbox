@@ -3,6 +3,7 @@
 # Data-Warehousing-Sandbox
 
 Data Warehouse를 Sandbox로 구현하여, Unit 단위 구축 및 테스트가 가능한 프레임워크 구축
+
 2022 데이터베이스 시스템 및 특론 수업 (과학기술연합대학원대학교)
 
 Author. 정현재 (presentj94@ust.ac.kr)
@@ -62,6 +63,10 @@ Author. 정현재 (presentj94@ust.ac.kr)
 
 ## DWH analysis flow
 
-- [ ] Database: https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page, Parquet type, 2021-07 이후 data에서 raw file을 airflow로 connect, clickhouse DWH로 load
+- [ ] Database
+  - https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page
+  - Parquet type
+  - 2021-07 이후 data에서 raw file을 airflow로 connect
+  - clickhouse DWH로 load
 - [ ] analysis : [TODO]
 
